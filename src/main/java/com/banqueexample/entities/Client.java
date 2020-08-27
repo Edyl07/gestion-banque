@@ -1,5 +1,7 @@
 package com.banqueexample.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -39,6 +41,7 @@ public class Client implements Serializable {
 		this.nomClient = nomClient;
 	}
 
+	@JsonIgnore
 	public Collection<Compte> getComptes() {
 		return comptes;
 	}

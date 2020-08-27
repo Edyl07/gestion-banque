@@ -1,5 +1,8 @@
 package com.banqueexample.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -40,12 +43,15 @@ public class Employe implements Serializable{
 	public void setNomEmploye(String nomEmploye) {
 		this.nomEmploye = nomEmploye;
 	}
+	@JsonIgnore
 	public Employe getEmployeSup() {
 		return employeSup;
 	}
+	@JsonSetter
 	public void setEmployeSup(Employe employeSup) {
 		this.employeSup = employeSup;
 	}
+	@JsonIgnore
 	public Collection<Groupe> getGroupe() {
 		return groupes;
 	}

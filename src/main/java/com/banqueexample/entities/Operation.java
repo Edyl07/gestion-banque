@@ -29,7 +29,7 @@ public class Operation implements Serializable{
 		this.dateOperation = dateOperation;
 		this.montant = montant;
 	}
-	public double getNumeroOperation() {
+	public Long getNumeroOperation() {
 		return numeroOperation;
 	}
 	public void setNumeroOperation(Long numeroOperation) {

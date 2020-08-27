@@ -1,5 +1,9 @@
 package com.banqueexample.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
@@ -8,6 +12,14 @@ import java.util.Date;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE_COMPTE", discriminatorType = DiscriminatorType.STRING, length = 2)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes(
+		{
+				@JsonSubTypes.Type(name = "CC", value = CompteCourant.class),
+				@JsonSubTypes.Type(name = "CE", value = CompteEpargne.class)
+		}
+)
+
 public abstract class Compte implements Serializable{
 	@Id
 	private String codeCompte;
@@ -62,6 +74,7 @@ public abstract class Compte implements Serializable{
 	public void setEmploye(Employe employe) {
 		this.employe = employe;
 	}
+	@JsonIgnore
 	public Collection<Operation> getOperations() {
 		return operations;
 	}
