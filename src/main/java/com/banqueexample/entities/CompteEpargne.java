@@ -2,10 +2,12 @@ package com.banqueexample.entities;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
 @Entity
 @DiscriminatorValue("CE")
+@XmlType(name = "CE")
 public class CompteEpargne extends Compte {
 	
 	private double taux;

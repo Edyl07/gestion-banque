@@ -2,14 +2,24 @@ package com.banqueexample.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(length = 1)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes(
+		{
+				@JsonSubTypes.Type(name = "V", value = Versement.class),
+				@JsonSubTypes.Type(name = "R", value = Retrait.class)
+		}
+)
 public class Operation implements Serializable{
 
 	@Id
@@ -51,6 +61,7 @@ public class Operation implements Serializable{
 		this.montant = montant;
 	}
 	@JsonIgnore
+	@XmlTransient
 	public Compte getCompte() {
 		return compte;
 	}
@@ -58,6 +69,7 @@ public class Operation implements Serializable{
 		this.compte = compte;
 	}
 	@JsonIgnore
+	@XmlTransient
 	public Employe getEmploye() {
 		return employe;
 	}

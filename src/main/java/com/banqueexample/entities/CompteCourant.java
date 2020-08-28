@@ -2,10 +2,12 @@ package com.banqueexample.entities;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.xml.bind.annotation.XmlType;
 import java.util.Date;
 
 @Entity
 @DiscriminatorValue("CC")
+@XmlType(name = "CC")
 public class  CompteCourant extends Compte{
 
 	private double decouvert;

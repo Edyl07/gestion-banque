@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -19,7 +21,9 @@ import java.util.Date;
 				@JsonSubTypes.Type(name = "CE", value = CompteEpargne.class)
 		}
 )
-
+@XmlSeeAlso({
+		CompteCourant.class, CompteEpargne.class
+})
 public abstract class Compte implements Serializable{
 	@Id
 	private String codeCompte;
@@ -75,6 +79,7 @@ public abstract class Compte implements Serializable{
 		this.employe = employe;
 	}
 	@JsonIgnore
+	@XmlTransient
 	public Collection<Operation> getOperations() {
 		return operations;
 	}

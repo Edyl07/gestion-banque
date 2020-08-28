@@ -3,6 +3,7 @@ package com.banqueexample.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -42,6 +43,7 @@ public class Client implements Serializable {
 	}
 
 	@JsonIgnore
+	@XmlTransient
 	public Collection<Compte> getComptes() {
 		return comptes;
 	}
