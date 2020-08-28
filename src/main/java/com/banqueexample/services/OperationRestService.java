@@ -2,6 +2,7 @@ package com.banqueexample.services;
 
 import com.banqueexample.entities.Operation;
 import com.banqueexample.metiers.OperationMetier;
+import com.banqueexample.metiers.PageOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,8 +32,15 @@ public class OperationRestService {
         return operationMetier.virement(cpt1, cpt2, montant, codeEmp);
     }
 
+//    @RequestMapping(value = "/operations", method = RequestMethod.GET)
+//    public List<Operation> listOperation() {
+//        return operationMetier.listOperation();
+//    }
+
     @RequestMapping(value = "/operations", method = RequestMethod.GET)
-    public List<Operation> listOperation() {
-        return operationMetier.listOperation();
+    public PageOperation getOperation(@RequestParam String codeCompte,
+                                      @RequestParam int page,
+                                      @RequestParam int size) {
+        return operationMetier.getOperation(codeCompte, page, size);
     }
 }

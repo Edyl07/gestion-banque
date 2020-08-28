@@ -12,6 +12,8 @@ public interface OperationMetier {
 
     public  boolean virement(String cpt1, String cpt2, double montant, Long codeEmp);
 
-    public List<Operation> listOperation();
+    public PageOperation getOperation(String codeCompte, int page, int size);
+
+    //public List<Operation> listOperation();
 
 }

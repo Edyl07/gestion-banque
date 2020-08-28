@@ -5,6 +5,8 @@ import com.banqueexample.Dao.EmployeRepository;
 import com.banqueexample.Dao.OperationRepository;
 import com.banqueexample.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,7 +65,19 @@ public class OperationImpl implements OperationMetier {
     }
 
     @Override
-    public List<Operation> listOperation() {
-        return operationRepository.findAll();
+    public PageOperation getOperation(String codeCompte, int page, int size) {
+        Page<Operation> ops = operationRepository.getOperations(codeCompte, new PageRequest(page, size));
+        PageOperation pageOperation = new PageOperation();
+        pageOperation.setOperations(ops.getContent());
+        pageOperation.setNombreOperation(ops.getNumberOfElements());
+        pageOperation.setPage(ops.getNumber());
+        pageOperation.setTotalPages(ops.getTotalPages());
+        pageOperation.setTotalOperation((int)ops.getTotalElements());
+        return pageOperation;
     }
+
+//    @Override
+//    public List<Operation> listOperation() {
+//        return operationRepository.findAll();
+//    }
 }
